@@ -20,4 +20,3 @@ if file:
     st.success("File uploaded successfully")
 
     st.dataframe(df)
-``
