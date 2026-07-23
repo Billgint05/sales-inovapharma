@@ -75,13 +75,23 @@ fact = fact.merge(
 df = fact
 
 # ======================
-# VARIABLE
+# VARIABLES
 # ======================
 
-TOTAL_SALES = pd.to_numeric(
+df["SALES_VALUE"] = pd.to_numeric(
     df["SALES_VALUE"],
     errors="coerce"
-).sum()
+)
+
+TOTAL_SALES = df["SALES_VALUE"].sum()
+
+SALES_BY_MONTH = (
+    df.groupby(
+        ["PRINCIPAL_YEAR", "PERIOD_NO"],
+        as_index=False
+    )["SALES_VALUE"]
+    .sum()
+)
 
 # ======================
 # DASHBOARD
@@ -93,30 +103,11 @@ col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.metric(
-        "Rows",
-        f"{len(df):,}"
+        "Sales",
+        f"{TOTAL_SALES:,.0f}"
     )
 
 with col2:
     st.metric(
         "Branch",
-        f"{df['BRANCH'].nunique():,}"
-    )
-
-with col3:
-    st.metric(
-        "Invoice",
-        f"{df['INVOICE_NO'].nunique():,}"
-    )
-
-with col4:
-    st.metric(
-        "SKU",
-        f"{df['ZP_ITEM_CODE'].nunique():,}"
-    )
-
-st.write("Data Shape")
-
-st.write(df.shape)
-
-st.dataframe(df.head(100))
+        f"{df['BRANCH'].nunique():,
