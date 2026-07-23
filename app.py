@@ -79,7 +79,7 @@ df = fact
 # ======================
 
 TOTAL_SALES = pd.to_numeric(
-    df["VALUE"],
+    df["SALES_VALUE"],
     errors="coerce"
 ).sum()
 
