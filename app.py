@@ -75,6 +75,15 @@ fact = fact.merge(
 df = fact
 
 # ======================
+# VARIABLE
+# ======================
+
+TOTAL_SALES = pd.to_numeric(
+    df["VALUE"],
+    errors="coerce"
+).sum()
+
+# ======================
 # DASHBOARD
 # ======================
 
