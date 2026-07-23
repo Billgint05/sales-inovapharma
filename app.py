@@ -6,28 +6,17 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("📈 Sales Performance Dashboard")
+# GANTI NANTI DENGAN LINK SHAREPOINT
+DAILYSALES_URL = "https://inovapharma.sharepoint.com/sites/Indonesia/Sales/Sales Data/Power Automate by SFE/APL/DailySales_APL.xlsx"
 
-file = st.file_uploader(
-    "Upload Sales File",
-    type=["xlsx"]
-)
+st.title("📈 Sales Dashboard")
 
-if file:
+@st.cache_data
+def load_sales():
+    return pd.read_excel(DAILYSALES_URL)
 
-    df = pd.read_excel(file)
+df = load_sales()
 
-    area_list = sorted(
-        df["Area"].dropna().unique()
-    )
+st.success(f"Loaded {len(df):,} rows")
 
-    selected_area = st.selectbox(
-        "Select Area",
-        area_list
-    )
-
-    df_filtered = df[
-        df["Area"] == selected_area
-    ]
-
-    st.dataframe(df_filtered)
+st.dataframe(df.head(100))
