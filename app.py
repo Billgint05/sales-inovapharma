@@ -7,7 +7,7 @@ st.set_page_config(
 )
 
 # GANTI NANTI DENGAN LINK SHAREPOINT
-DAILYSALES_URL = "https://inovapharma.sharepoint.com/sites/Indonesia/Sales/Sales Data/Power Automate by SFE/APL/DailySales_APL.xlsx"
+DAILYSALES_URL = "https://inovapharma.sharepoint.com/:x:/s/Indonesia/IQBSk90CCW1qTaqGADTBFrfeAVLOChDuyW2pXTGYy1I1-kU?e=uhsLLD"
 
 st.title("📈 Sales Dashboard")
 
