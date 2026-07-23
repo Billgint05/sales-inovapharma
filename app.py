@@ -26,11 +26,7 @@ sku = pd.read_csv(
 # FORMAT KEY
 # ======================
 
-fact["CUSTOMER_CODE"] = (
-    fact["CUSTOMER_CODE"]
-    .astype(str)
-    .str.strip()
-)
+fact["CUSTOMER_CODE"] = fact["CUSTOMER_CODE"].astype(str).str.strip()
 
 outlet["Distributor Customer ID"] = (
     outlet["Distributor Customer ID"]
@@ -38,11 +34,7 @@ outlet["Distributor Customer ID"] = (
     .str.strip()
 )
 
-fact["ZP_ITEM_CODE"] = (
-    fact["ZP_ITEM_CODE"]
-    .astype(str)
-    .str.strip()
-)
+fact["ZP_ITEM_CODE"] = fact["ZP_ITEM_CODE"].astype(str).str.strip()
 
 sku["DIST_SKU CODE"] = (
     sku["DIST_SKU CODE"]
@@ -67,4 +59,36 @@ fact = fact.merge(
 
 fact = fact.merge(
     sku,
-    left_on="ZP_ITEM
+    left_on="ZP_ITEM_CODE",
+    right_on="DIST_SKU CODE",
+    how="left"
+)
+
+df = fact
+
+# ======================
+# VARIABLES
+# ======================
+
+df["SALES_VALUE"] = pd.to_numeric(
+    df["SALES_VALUE"],
+    errors="coerce"
+)
+
+TOTAL_SALES = df["SALES_VALUE"].sum()
+
+SALES_BY_MONTH = (
+    df.groupby(
+        ["PRINCIPAL_YEAR", "PERIOD_NO"],
+        as_index=False
+    )["SALES_VALUE"]
+    .sum()
+)
+
+# ======================
+# DASHBOARD
+# ======================
+
+st.title("📈 Sales Performance Dashboard")
+
+st.dataframe(SALES_BY_MONTH)
