@@ -1,6 +1,5 @@
 import streamlit as st
-import pandas as pd
 
-DAILYSALES_URL = "PASTE_LINK"
+st.title("Billy Test")
 
-st.write(DAILYSALES_URL)
+st.write("Hello World")
