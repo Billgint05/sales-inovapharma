@@ -9,7 +9,7 @@ st.set_page_config(
 st.title("📈 Sales Performance Dashboard")
 
 file = st.file_uploader(
-    "Upload Excel File",
+    "Upload Sales File",
     type=["xlsx"]
 )
 
@@ -17,6 +17,17 @@ if file:
 
     df = pd.read_excel(file)
 
-    st.success("File uploaded successfully")
+    area_list = sorted(
+        df["Area"].dropna().unique()
+    )
 
-    st.dataframe(df)
+    selected_area = st.selectbox(
+        "Select Area",
+        area_list
+    )
+
+    df_filtered = df[
+        df["Area"] == selected_area
+    ]
+
+    st.dataframe(df_filtered)
