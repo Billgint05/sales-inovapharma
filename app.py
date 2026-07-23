@@ -67,47 +67,4 @@ fact = fact.merge(
 
 fact = fact.merge(
     sku,
-    left_on="ZP_ITEM_CODE",
-    right_on="DIST_SKU CODE",
-    how="left"
-)
-
-df = fact
-
-# ======================
-# VARIABLES
-# ======================
-
-df["SALES_VALUE"] = pd.to_numeric(
-    df["SALES_VALUE"],
-    errors="coerce"
-)
-
-TOTAL_SALES = df["SALES_VALUE"].sum()
-
-SALES_BY_MONTH = (
-    df.groupby(
-        ["PRINCIPAL_YEAR", "PERIOD_NO"],
-        as_index=False
-    )["SALES_VALUE"]
-    .sum()
-)
-
-# ======================
-# DASHBOARD
-# ======================
-
-st.title("📈 Sales Performance Dashboard")
-
-col1, col2, col3, col4 = st.columns(4)
-
-with col1:
-    st.metric(
-        "Sales",
-        f"{TOTAL_SALES:,.0f}"
-    )
-
-with col2:
-    st.metric(
-        "Branch",
-        f"{df['BRANCH'].nunique():,
+    left_on="ZP_ITEM
