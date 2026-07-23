@@ -43,6 +43,18 @@ sku["DIST_SKU CODE"] = (
 )
 
 # ======================
+# REMOVE DUPLICATES
+# ======================
+
+outlet = outlet.drop_duplicates(
+    subset=["Distributor Customer ID"]
+)
+
+sku = sku.drop_duplicates(
+    subset=["DIST_SKU CODE"]
+)
+
+# ======================
 # MERGE OUTLET
 # ======================
 
